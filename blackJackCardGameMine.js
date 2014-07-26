@@ -18,11 +18,14 @@ function Deck(){
 
 	}
   this.shuffle = function(){
-    for (i=0; i<52; i++){
-      var cardShuffle = this.cards.shift()
-      var randomIndex = Math.floor(Math.random() * 52)
-      this.cards.splice(randomIndex, 1, cardShuffle) //The splice() method adds/removes items to/from an array, and returns the removed item(s)
+    var m = this.cards.length, t, i;
+    while(m){
+      i = Math.floor(Math.random() * m--);
+      t = this.cards[m];
+      this.cards[m] = this.cards[i];
+      this.cards[i] = t;
     }
+    console.log(this.cards.length);
   }
 }
 function Player(name, deck){
@@ -43,8 +46,9 @@ function Player(name, deck){
   console.log()
   var d = new Deck(); //this makes a new instance of a Deck object
   d.buildDeck(); //this calls method on line 14. Cards are pushed on to the cards Array
+  console.log(d.cards);//before shuffle
   d.shuffle();
-  console.log(d);
+  console.log(d.cards);//after shuffle
   var p1 = new Player("Brian", d); //
   var dealer = new Player("Dealer", d);
 
@@ -53,6 +57,6 @@ function Player(name, deck){
     dealer.deal();
   }
 //need to make POINT value function in Card object
-//need shuffle method in Card object
+//need shuffle method in Card object - done
 //need to play game
 //need method to add point values in Player
